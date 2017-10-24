@@ -12,7 +12,7 @@
     "coverage": "NODE_ENV=test NODE_PATH=src babel-node $(npm bin)/isparta cover node_modules/mocha/bin/_mocha -- --recursive",
     "dev": "npm test -- --watch",
     "lint": "eslint src test",
-    "test": "env NODE_ENV=test env NODE_PATH=src mocha --compilers js:babel-core/register --recursive test",
+    "test": "env NODE_ENV=test env NODE_PATH=src mocha --require babel-register --recursive test",
     "prepublish": "npm run clean && npm run build"
   },
   "keywords": [
