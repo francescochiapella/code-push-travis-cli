@@ -32,7 +32,7 @@ const argv = yargs
     .option("dev", {
         alias: "development",
         default: false,
-        describe: "This specifies whether to generate a unminified, development JS bundle ( This parameter will be ignored if the framework is cordava)",
+        describe: "This specifies whether to generate a unminified, development JS bundle ( This parameter will be ignored if the framework is cordova)",
         type: "boolean"
     })
     .option("m", {
