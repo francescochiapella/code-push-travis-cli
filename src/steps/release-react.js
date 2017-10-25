@@ -17,21 +17,21 @@ function appName (pkgName, platform, argv) {
     return `"${pkgName}-${platform}"`;
 }
 
-function reactNativeRelease (argv, platform, pkg) {
+function codePushFrameworkRelease (argv, platform, pkg) {
     return [
         "code-push",
-        "release-react",
+        (!argv.framework || argv.framework === "reactnative") ? "release-react" : "release-cordova",
         appName(pkg.name, platform, argv),
         platform,
         `-d "${argv.deploymentName}"`,
         `--des "${argv.description}"`,
-        `--dev ${argv.development}`,
+        (!argv.framework || argv.framework === "reactnative") ? `--dev ${argv.development}` : "",
         `-m ${argv.mandatory}`,
         targetBinary(argv.targetBinary)
     ].join(" ");
 }
 
-function reactNativeReleaseStatus (argv, pkgName, platform) {
+function codePushFrameworkReleaseStatus (argv, pkgName, platform) {
     return [
         "code-push",
         "deployment",
@@ -40,7 +40,7 @@ function reactNativeReleaseStatus (argv, pkgName, platform) {
     ].join(" ");
 }
 
-export default function codepushReleaseReact (argv, platform, pkg) {
-    execSync(reactNativeRelease(argv, platform, pkg), {stdio: [0, 1, 2]});
-    execSync(reactNativeReleaseStatus(argv, pkg.name, platform), {stdio: [0, 1, 2]});
+export default function codePushRelease (argv, platform, pkg) {
+    execSync(codePushFrameworkRelease(argv, platform, pkg), {stdio: [0, 1, 2]});
+    execSync(codePushFrameworkReleaseStatus(argv, pkg.name, platform), {stdio: [0, 1, 2]});
 }

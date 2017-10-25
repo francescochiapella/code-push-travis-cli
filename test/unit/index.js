@@ -8,26 +8,26 @@ describe("`codePushTravis` function", () => {
 
     const codepushLogin = sinon.spy();
     const codepushLogout = sinon.spy();
-    const codepushReleaseReact = sinon.spy();
+    const codePushRelease = sinon.spy();
 
     before(() => {
         codePushTravis.__Rewire__("codepushLogin", codepushLogin);
         codePushTravis.__Rewire__("codepushLogout", codepushLogout);
-        codePushTravis.__Rewire__("codepushReleaseReact", codepushReleaseReact);
+        codePushTravis.__Rewire__("codePushRelease", codePushRelease);
     });
 
     beforeEach(() => {
         process.env = omit(process.env, ["TRAVIS_PULL_REQUEST", "TRAVIS_BRANCH", "TRAVIS_BUILD_DIR", "TRAVIS_TAG"]);
         codepushLogin.reset();
         codepushLogout.reset();
-        codepushReleaseReact.reset();
+        codePushRelease.reset();
     });
 
     after(() => {
         process.env = omit(process.env, ["TRAVIS_PULL_REQUEST", "TRAVIS_BRANCH", "TRAVIS_BUILD_DIR", "TRAVIS_TAG"]);
         codePushTravis.__ResetDependency__("codepushLogin");
         codePushTravis.__ResetDependency__("codepushLogout");
-        codePushTravis.__ResetDependency__("codepushReleaseReact");
+        codePushTravis.__ResetDependency__("codePushRelease");
     });
 
     it("skip all functions [CASE: `TRAVIS_PULL_REQUEST` is true]", () => {
@@ -38,7 +38,7 @@ describe("`codePushTravis` function", () => {
         };
         codePushTravis(argv);
         expect(codepushLogin).to.have.callCount(0);
-        expect(codepushReleaseReact).to.have.callCount(0);
+        expect(codePushRelease).to.have.callCount(0);
         expect(codepushLogout).to.have.callCount(0);
     });
 
@@ -50,7 +50,7 @@ describe("`codePushTravis` function", () => {
         };
         codePushTravis(argv);
         expect(codepushLogin).to.have.callCount(0);
-        expect(codepushReleaseReact).to.have.callCount(0);
+        expect(codePushRelease).to.have.callCount(0);
         expect(codepushLogout).to.have.callCount(0);
     });
 
@@ -64,7 +64,7 @@ describe("`codePushTravis` function", () => {
         };
         codePushTravis(argv);
         expect(codepushLogin).to.have.callCount(0);
-        expect(codepushReleaseReact).to.have.callCount(0);
+        expect(codePushRelease).to.have.callCount(0);
         expect(codepushLogout).to.have.callCount(0);
     });
 
@@ -78,8 +78,8 @@ describe("`codePushTravis` function", () => {
         };
         codePushTravis(argv);
         expect(codepushLogin).to.have.callCount(1);
-        expect(codepushReleaseReact).to.have.callCount(1);
-        expect(codepushReleaseReact).to.have.been.calledWithExactly(argv, "android", pkg);
+        expect(codePushRelease).to.have.callCount(1);
+        expect(codePushRelease).to.have.been.calledWithExactly(argv, "android", pkg);
         expect(codepushLogout).to.have.callCount(1);
     });
 
@@ -93,9 +93,9 @@ describe("`codePushTravis` function", () => {
         };
         codePushTravis(argv);
         expect(codepushLogin).to.have.callCount(1);
-        expect(codepushReleaseReact).to.have.callCount(2);
-        expect(codepushReleaseReact.firstCall).to.have.been.calledWithExactly(argv, "android", pkg);
-        expect(codepushReleaseReact.secondCall).to.have.been.calledWithExactly(argv, "ios", pkg);
+        expect(codePushRelease).to.have.callCount(2);
+        expect(codePushRelease.firstCall).to.have.been.calledWithExactly(argv, "android", pkg);
+        expect(codePushRelease.secondCall).to.have.been.calledWithExactly(argv, "ios", pkg);
         expect(codepushLogout).to.have.callCount(1);
     });
 
@@ -110,9 +110,9 @@ describe("`codePushTravis` function", () => {
         };
         codePushTravis(argv);
         expect(codepushLogin).to.have.callCount(1);
-        expect(codepushReleaseReact).to.have.callCount(2);
-        expect(codepushReleaseReact.firstCall).to.have.been.calledWithExactly(argv, "android", pkg);
-        expect(codepushReleaseReact.secondCall).to.have.been.calledWithExactly(argv, "ios", pkg);
+        expect(codePushRelease).to.have.callCount(2);
+        expect(codePushRelease.firstCall).to.have.been.calledWithExactly(argv, "android", pkg);
+        expect(codePushRelease.secondCall).to.have.been.calledWithExactly(argv, "ios", pkg);
         expect(codepushLogout).to.have.callCount(1);
     });
 

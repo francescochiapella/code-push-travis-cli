@@ -32,7 +32,7 @@ const argv = yargs
     .option("dev", {
         alias: "development",
         default: false,
-        describe: "This specifies whether to generate a unminified, development JS bundle",
+        describe: "This specifies whether to generate a unminified, development JS bundle ( This parameter will be ignored if the framework is cordava)",
         type: "boolean"
     })
     .option("m", {
@@ -57,6 +57,13 @@ const argv = yargs
         describe: "Platform to push [ios or android]",
         choices: ["android", "ios"],
         type: "array"
+    })
+    .option("f", {
+        alias: "framework",
+        default: "reactnative",
+        describe: "Framework used to create the Mobile Application",
+        choices: ["reactnative", "cordova"],
+        type: "string"
     })
     .option("tag", {
         // TODO: change default to true when major version upgrade

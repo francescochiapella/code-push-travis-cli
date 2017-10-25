@@ -1,5 +1,5 @@
 import codepushLogin from "./steps/login";
-import codepushReleaseReact from "./steps/release-react";
+import codePushRelease from "./steps/release-react";
 import codepushLogout from "./steps/logout";
 
 export default function codePushTravis (argv) {
@@ -8,7 +8,7 @@ export default function codePushTravis (argv) {
     ) && process.env.TRAVIS_PULL_REQUEST === "false") {
         const pkg = require(`${process.env.TRAVIS_BUILD_DIR}/package.json`);
         codepushLogin();
-        argv.platforms.forEach(platform => codepushReleaseReact(argv, platform, pkg));
+        argv.platforms.forEach(platform => codePushRelease(argv, platform, pkg));
         codepushLogout();
     }
 }
