@@ -32,15 +32,32 @@ describe("`codepushReleaseReact` function", () => {
 
     });
 
-    describe("`appName` function", () => {
-
+    describe("`appName` function", () => {  
+        
         const appName = codepushReleaseReact.__get__("appName");
 
         it("return the app name", () => {
-            const ret = appName("nameOfPackage", "platform");
+            const argv = {
+            };
+            const ret = appName("nameOfPackage", "platform", argv);
             expect(ret).to.equal('"nameOfPackage-platform"');
         });
 
+        it("return the specified android code-push app name", () => {
+            const argv = {
+                na:"nameOfPackage"
+            };
+            const ret = appName("nameOfPackage", "android", argv);
+            expect(ret).to.equal('"nameOfPackage"');
+        });
+
+        it("return the specified iods code-push app name", () => {
+            const argv = {
+                ni:"nameOfPackage"
+            };
+            const ret = appName("nameOfPackage", "ios", argv);
+            expect(ret).to.equal('"nameOfPackage"');
+        });
     });
 
     describe("`reactNativeRelease` function", () => {
@@ -85,13 +102,15 @@ describe("`codepushReleaseReact` function", () => {
     });
 
     describe("`reactNativeReleaseStatus` function", () => {
+        const argv = {
+        };
 
         const reactNativeReleaseStatus = codepushReleaseReact.__get__("reactNativeReleaseStatus");
 
         it("returns the correct command to release", () => {
             const packageName = "nameOfPackage";
             const platform = "platform";
-            const ret = reactNativeReleaseStatus(packageName, platform);
+            const ret = reactNativeReleaseStatus(argv, packageName, platform);
             expect(ret).to.equal(
                 'code-push deployment list "nameOfPackage-platform"'
             );
@@ -105,12 +124,13 @@ describe("`codepushReleaseReact` function", () => {
             description: "description for the deploy",
             mandatory: true,
             targetBinary: "targetBinary",
-            development: true
+            development: true,
         };
         const platform = "platform";
         const pkg = {
             name: "nameOfPackage"
         };
+        
         codepushReleaseReact(argv, platform, pkg);
         expect(execSync).to.have.callCount(2);
         expect(execSync.firstCall).to.have.been.calledWithExactly(
