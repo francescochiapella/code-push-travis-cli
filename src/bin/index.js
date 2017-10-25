@@ -41,6 +41,16 @@ const argv = yargs
         describe: "Check if you want your push is mandatory",
         type: "boolean"
     })
+    .option("na", {
+        alias: "nameAndroid",
+        describe: "app name for Android registered on code-push",
+        type: "string"
+    })
+    .option("ni", {
+        alias: "nameIos",
+        describe: "app name for Ios registered on code-push",
+        type: "string"
+    })
     .option("platform", {
         alias: "platforms",
         default: ["android", "ios"],
