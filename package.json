@@ -1,7 +1,7 @@
 {
   "name": "code-push-travis-cli",
   "version": "1.2.0",
-  "description": "Automatic ci deploy of react-native app with code-push",
+  "description": "Automatic ci deploy of react-native and cordova app with code-push",
   "main": "lib/index.js",
   "bin": {
     "code-push-travis": "./lib/bin/index.js"
@@ -20,7 +20,8 @@
     "deploy",
     "ci",
     "travis-ci",
-    "react-native"
+    "react-native",
+    "cordova"
   ],
   "author": "Davide Bianchi <davide.bianchi@mondora.com>",
   "repository": {

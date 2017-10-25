@@ -24,6 +24,8 @@ The following environment variables are needed to configure the CLI:
 
 ## Example usage
 
+### React Native 
+
 In your `.travis.yml` file:
 
 ```yml
@@ -34,4 +36,18 @@ node_js:
 
 script:
   - code-push-travis
+```
+
+### Cordova 
+
+In your `.travis.yml` file:
+
+```yml
+language: node_js
+
+node_js:
+  - 6
+
+script:
+  - code-push-travis -f cordova
 ```
